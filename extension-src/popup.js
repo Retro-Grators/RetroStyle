@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			tab = tabs[0]
 
 			//The code after 'code:' is run with the execute script, but it needs to be in string form 
-			chrome.tabs.executeScript(tab.id, {code:`${changeTheme.toString().slice(32, changeTheme.toString().length-3)}`});
+			chrome.tabs.executeScript(tab.id, {code:`${changeTheme.toString().slice(32, changeTheme.toString().length-2)}`});
+
 		})
 	})
 });
