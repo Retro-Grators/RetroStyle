@@ -58,7 +58,23 @@ function getThemeChanger(tab, theme){
 	});
 }
 
+function createBtn(title, theme) {
+	var body = document.getElementsByTagName("body")[0]; 
+	var button = document.createElement('BUTTON');
+	button.innerText = title;
+	button.className = "btn";
+	button.id = theme;
+	button.style.setProperty("background-color", themes.get(theme).backgroundColor);
+	button.style.setProperty("color", themes.get(theme).fontColor);
+	console.log(themes.get(theme))
+	body.appendChild(button);
+	console.log(button);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+	createBtn("Dark Mode", "dark");
+	createBtn("America", "america");
+
 	//onclick for the button
 	Array.prototype.forEach.call(document.getElementsByClassName('btn'), element => {
 		console.log(element)

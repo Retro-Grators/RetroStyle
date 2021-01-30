@@ -1,0 +1,12 @@
+
+body {
+  width: 410px;
+  height: 210px;
+  padding: 5px;
+}
+
+.btn {
+	height: 100%;
+	width: 30%;
+	margin: 5px
+}
