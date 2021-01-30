@@ -5,8 +5,19 @@ var darkMode={
 	headingFont:"",
 	headingColor:"#dddddd",
 	backgroundColor:"black",
-
 };
+var americaMode={
+	font:"",
+	fontColor:"darkblue",
+	headingFont:"",
+	headingColor:"darkred",
+	backgroundColor:"white",
+};
+
+var themes = new Map();
+themes.set("dark",darkMode);
+themes.set("america",americaMode);
+
 var th = darkMode;
 
 function changeTheme () {
@@ -49,13 +60,16 @@ function getThemeChanger(tab, theme){
 
 document.addEventListener('DOMContentLoaded', function () {
 	//onclick for the button
-	document.getElementById('btn').addEventListener('click', () => {
-		//get the current tab
-		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-			tab = tabs[0]
+	Array.prototype.forEach.call(document.getElementsByClassName('btn'), element => {
+		console.log(element)
+			element.addEventListener('click', () => {
+				//get the current tab
+				chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+					tab = tabs[0]
 
-			getThemeChanger(tab, th)
-		})
-	})
+					getThemeChanger(tab, themes.get(element.id))
+				})
+			})
+	});
 });
 
