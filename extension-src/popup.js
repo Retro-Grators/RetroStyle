@@ -1,7 +1,10 @@
 var tab;
 
 function changeTheme (theme) {
-	document.getElementsByTagName('body')[0].style.setProperty('background-color','black')
+	//document.getElementsByTagName('body')[0].style.setProperty('background-color','black')
+	Array.prototype.forEach.call(document.getElementsByTagName('*'), element => {
+		element.style.setProperty('background-color','black');
+	})
 	Array.prototype.forEach.call(document.getElementsByTagName('*'), element => {
 		element.style.setProperty('color','white');
 	})
