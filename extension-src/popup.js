@@ -23,14 +23,9 @@ const textOffMode={
 	headingColor:"white",
 	backgroundColor:"white",
 };
-const marqueeMode={
-	font:"sans-serif",
-	fontColor:"white",
-	headingFont:"",
-	headingColor:"red",
-	backgroundColor:"black",
-	marquee:"true",
-	allCaps:1
+const bigMode={
+	fontSize:"30px",
+	font: "monospace"
 };
 const starWarsMode={
 	font:"sans-serif",
@@ -46,7 +41,8 @@ const miamiViceMode={
 	fontColor:"#f890e7",
 	headingFont:"",
 	headingColor:" #f890e7",
-	backgroundColor:"#0bd3d3"
+	backgroundColor:"#0bd3d3",
+	fontBorder:"0 0 5px white"
 };
 const gatorMode={
 	font: "Courier New, monospace",
@@ -70,7 +66,7 @@ themes.set("dark",darkMode);
 themes.set("america",americaMode);
 themes.set("hacker",hackerMode);
 themes.set("textoff",textOffMode);
-themes.set("marquee",marqueeMode);
+themes.set("big",bigMode);
 themes.set("starwars",starWarsMode);
 themes.set("miamivice",miamiViceMode);
 themes.set("gator",gatorMode);
@@ -86,7 +82,7 @@ function revertTheme () {
 }
 
 function changeTheme () {
-	function setStyles(element){
+	function setStyles(){
 		const headerTags = ["H1","H2","H3","H4", "H5", "H6"]
 		Array.prototype.forEach.call(document.getElementsByTagName('*'), element => {
 			if(!(element.tagName=="MARQUEE")){
@@ -97,8 +93,14 @@ function changeTheme () {
 				if(theme.fontColor){
 					element.style.setProperty('color',theme.fontColor);
 				}
+				if(theme.fontBorder){
+					element.style.setProperty('text-shadow', theme.fontBorder)
+				}
 				if(theme.backgroundColor){
 					element.style.setProperty('background-color',theme.backgroundColor);
+				}
+				if(theme.fontSize){
+					element.style.setProperty('font-size',theme.fontSize);
 				}
 				if(theme.headingFont && headerTags.includes(element.tagName)){
 					element.style.setProperty('font-family',theme.headingFont);
@@ -169,11 +171,11 @@ function createReverter() {
 
 document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Dark Mode", "dark");
-	createBtn("America", "america");
 	createBtn("Hacker Mode", "hacker");
-	createBtn("Text Off", "textoff");	
-	createBtn("Marquee", "marquee");
 	createBtn("Star Wars", "starwars");
+	createBtn("America", "america");
+	createBtn("Big", "big");
+	createBtn("Text Off", "textoff");	
 	createBtn("Miami Vice", "miamivice");
 	createBtn("Gator", "gator");
 	createBtn("90s", "90");
