@@ -51,6 +51,10 @@ themes.set("starwars",starWarsMode);
 
 var th = darkMode;
 
+function revertTheme () {
+	document.getElementsByTagName('body')[0].outerHTML = page;
+}
+
 function changeTheme () {
 	function setStyles(element){
 		const headerTags = ["H1","H2","H3","H4", "H5", "H6"]
@@ -87,6 +91,18 @@ function changeTheme () {
 	}, 500)
 }
 
+function reverter(tab){
+	let funcStr = revertTheme.toString();
+	//The code after 'code:' is run with the execute script, but it needs to be in string form 
+	chrome.tabs.executeScript(tab.id, {code:`${funcStr.slice(funcStr.indexOf('{')+1, funcStr.lastIndexOf('}'))}`});
+}
+
+function setOriginalPage(tab){
+	//The code after 'code:' is run with the execute script, but it needs to be in string form 
+	chrome.tabs.executeScript(tab.id, {code:`var page=document.getElementsByTagName('body')[0].outerHTML;`}, function() {});
+}
+
+
 function getThemeChanger(tab, theme){
 	let funcStr = changeTheme.toString();
 	//The code after 'code:' is run with the execute script, but it needs to be in string form 
@@ -106,6 +122,14 @@ function createBtn(title, theme) {
 	body.appendChild(button);
 }
 
+function createReverter() {
+	var body = document.getElementsByTagName("body")[0]; 
+	var button = document.createElement('BUTTON');
+	button.innerText = "Revert to Normal";
+	button.className = "reverter";
+	body.appendChild(button);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Dark Mode", "dark");
 	createBtn("America", "america");
@@ -113,6 +137,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Text Off", "textoff");
 	createBtn("Marquee", "marquee");
 	createBtn("Star Wars", "starwars");
+	createReverter();
+	chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+		tab = tabs[0]
+
+		setOriginalPage(tab);
+	})
+
 
 	//onclick for the button
 	Array.prototype.forEach.call(document.getElementsByClassName('btn'), element => {
@@ -125,5 +156,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				})
 			})
 	});
+
+	Array.prototype.forEach.call(document.getElementsByClassName('reverter'), element => {
+		element.addEventListener('click', () => {
+			//get the current tab
+			chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+				tab = tabs[0]
+
+				reverter(tab);
+			})
+		})
+});
 });
 
