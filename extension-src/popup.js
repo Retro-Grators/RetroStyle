@@ -1,30 +1,53 @@
 var tab;
-var darkMode={
-	font:"",
+const darkMode={
 	fontColor:"white",
-	headingFont:"",
 	headingColor:"#dddddd",
 	backgroundColor:"black",
 };
-var americaMode={
-	font:"",
+const americaMode={
 	fontColor:"darkblue",
-	headingFont:"",
 	headingColor:"darkred",
 	backgroundColor:"white",
 };
-var hackerMode={
+const hackerMode={
 	font:"consolas",
 	fontColor:"#00ff00",
-	headingFont:"",
 	headingColor:"#00ff00",
 	backgroundColor:"black",
+};
+const textOffMode={
+	font:"",
+	fontColor:"white",
+	headingFont:"",
+	headingColor:"white",
+	backgroundColor:"white",
+};
+const marqueeMode={
+	font:"sans-serif",
+	fontColor:"white",
+	headingFont:"",
+	headingColor:"red",
+	backgroundColor:"black",
+	marquee:"true",
+	allCaps:1
+};
+const starWarsMode={
+	font:"sans-serif",
+	fontColor:"yellow",
+	headingFont:"",
+	headingColor:"yellow",
+	backgroundColor:"black",
+	marquee:"true",
+	allCaps:2
 };
 
 var themes = new Map();
 themes.set("dark",darkMode);
 themes.set("america",americaMode);
 themes.set("hacker",hackerMode);
+themes.set("textoff",textOffMode);
+themes.set("marquee",marqueeMode);
+themes.set("starwars",starWarsMode);
 
 var th = darkMode;
 
@@ -32,20 +55,26 @@ function changeTheme () {
 	function setStyles(element){
 		const headerTags = ["H1","H2","H3","H4", "H5", "H6"]
 		Array.prototype.forEach.call(document.getElementsByTagName('*'), element => {
-			if(theme.font){
-				element.style.setProperty('font-family',theme.font);
-			}
-			if(theme.fontColor){
-				element.style.setProperty('color',theme.fontColor);
-			}
-			if(theme.backgroundColor){
-				element.style.setProperty('background-color',theme.backgroundColor);
-			}
-			if(theme.headingFont && headerTags.includes(element.tagName)){
-				element.style.setProperty('font-family',theme.headingFont);
-			}
-			if(theme.headingColor && headerTags.includes(element.tagName)){
-				element.style.setProperty('color',theme.headingColor);
+			if(!(element.tagName=="MARQUEE")){
+				console.log()
+				if(theme.font){
+					element.style.setProperty('font-family',theme.font);
+				}
+				if(theme.fontColor){
+					element.style.setProperty('color',theme.fontColor);
+				}
+				if(theme.backgroundColor){
+					element.style.setProperty('background-color',theme.backgroundColor);
+				}
+				if(theme.headingFont && headerTags.includes(element.tagName)){
+					element.style.setProperty('font-family',theme.headingFont);
+				}
+				if(theme.headingColor && headerTags.includes(element.tagName)){
+					element.style.setProperty('color',theme.headingColor);
+				}
+				if((theme.allCaps===2 || (theme.allCaps===1 && headerTags.includes(element.tagName))) && (element.tagName=="P" || element.children.length<1)){
+					element.innerText = element.innerText.toUpperCase();
+				}
 			}
 		});
 	}
@@ -81,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Dark Mode", "dark");
 	createBtn("America", "america");
 	createBtn("Hacker Mode", "hacker");
+	createBtn("Text Off", "textoff");
+	createBtn("Marquee", "marquee");
+	createBtn("Star Wars", "starwars");
 
 	//onclick for the button
 	Array.prototype.forEach.call(document.getElementsByClassName('btn'), element => {
