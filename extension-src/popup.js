@@ -3,6 +3,7 @@ const darkMode={
 	fontColor:"white",
 	headingColor:"#dddddd",
 	backgroundColor:"black",
+	backgroundImage: "url(https://i.pinimg.com/originals/e9/7b/ab/e97bab7d177c3a4807c9ae8a61c799bc.jpg)"
 };
 const americaMode={
 	fontColor:"darkblue",
@@ -40,6 +41,29 @@ const starWarsMode={
 	marquee:"true",
 	allCaps:2
 };
+const miamiViceMode={
+	font: "Jazz LET, fantasy",
+	fontColor:"#f890e7",
+	headingFont:"",
+	headingColor:" #f890e7",
+	backgroundColor:"#0bd3d3"
+};
+const gatorMode={
+	font: "Courier New, monospace",
+	fontColor:"#ff7221",
+	headingFont:"",
+	headingColor:"#ff7221",
+	backgroundColor:"#1a1deb"
+};
+const ninetiesMode={
+	font: "cursive",
+	fontColor:"#ff3bd1",
+	headingFont:"",
+	headingColor:"#19b02f",
+	backgroundColor:"#8c1dd1",
+	backgroundImage: 'url(https://lh3.googleusercontent.com/proxy/1syJq_8IB5sTTqnZEYbxCZRAuqQSu0m969QAY2VI3PbrA_ohsxOAMZaUZUAsn4BoLquwJcRHO2YmVdOo2rCkVm9prt3596PkUTxEr3QauR9ZGEYYT_7aIyQ)'
+
+};
 
 var themes = new Map();
 themes.set("dark",darkMode);
@@ -48,6 +72,12 @@ themes.set("hacker",hackerMode);
 themes.set("textoff",textOffMode);
 themes.set("marquee",marqueeMode);
 themes.set("starwars",starWarsMode);
+themes.set("miamivice",miamiViceMode);
+themes.set("gator",gatorMode);
+themes.set("90",ninetiesMode);
+
+
+
 
 var th = darkMode;
 
@@ -79,9 +109,16 @@ function changeTheme () {
 				if((theme.allCaps===2 || (theme.allCaps===1 && headerTags.includes(element.tagName))) && (element.tagName=="P" || element.children.length<1)){
 					element.innerText = element.innerText.toUpperCase();
 				}
+				if (theme.backgroundImage)
+				{
+					document.querySelector('body').style.setProperty('background-image',"url(https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX26992145.jpg)")
+				}
 			}
 		});
+
 	}
+
+
 
 	setStyles();
 
@@ -134,15 +171,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Dark Mode", "dark");
 	createBtn("America", "america");
 	createBtn("Hacker Mode", "hacker");
-	createBtn("Text Off", "textoff");
+	createBtn("Text Off", "textoff");	
 	createBtn("Marquee", "marquee");
 	createBtn("Star Wars", "starwars");
+	createBtn("Miami Vice", "miamivice");
+	createBtn("Gator", "gator");
+	createBtn("90s", "90");
 	createReverter();
 	chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
 		tab = tabs[0]
 
 		setOriginalPage(tab);
 	})
+
+
 
 
 	//onclick for the button
