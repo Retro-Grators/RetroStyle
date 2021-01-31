@@ -1,5 +1,6 @@
 var tab;
 const darkMode={
+	
 	fontColor:"white",
 	headingColor:"#dddddd",
 	backgroundColor:"black",
@@ -125,9 +126,9 @@ function changeTheme () {
 	setStyles();
 
 	
-	setTimeout(() => {
+	//setTimeout(() => {
 		setStyles();
-	}, 500)
+	//}, 200)
 }
 
 function reverter(tab){
@@ -145,9 +146,11 @@ function setOriginalPage(tab){
 function getThemeChanger(tab, theme){
 	let funcStr = changeTheme.toString();
 	//The code after 'code:' is run with the execute script, but it needs to be in string form 
-	chrome.tabs.executeScript(tab.id, {code:`var theme=${JSON.stringify(theme)};`}, function() {
-		chrome.tabs.executeScript(tab.id, {code:`${funcStr.slice(funcStr.indexOf('{')+1, funcStr.lastIndexOf('}'))}`});
-	});
+	chrome.tabs.executeScript(tab.id, {code:`${revertTheme.toString().slice(revertTheme.toString().indexOf('{')+1, revertTheme.toString().lastIndexOf('}'))}`}, function() {
+		chrome.tabs.executeScript(tab.id, {code:`var theme=${JSON.stringify(theme)};`}, function() {
+			chrome.tabs.executeScript(tab.id, {code:`${funcStr.slice(funcStr.indexOf('{')+1, funcStr.lastIndexOf('}'))}`});
+		});
+	})
 }
 
 function createBtn(title, theme) {
