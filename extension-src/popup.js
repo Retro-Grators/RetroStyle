@@ -13,10 +13,18 @@ var americaMode={
 	headingColor:"darkred",
 	backgroundColor:"white",
 };
+var hackerMode={
+	font:"consolas",
+	fontColor:"#00ff00",
+	headingFont:"",
+	headingColor:"#00ff00",
+	backgroundColor:"black",
+};
 
 var themes = new Map();
 themes.set("dark",darkMode);
 themes.set("america",americaMode);
+themes.set("hacker",hackerMode);
 
 var th = darkMode;
 
@@ -66,18 +74,16 @@ function createBtn(title, theme) {
 	button.id = theme;
 	button.style.setProperty("background-color", themes.get(theme).backgroundColor);
 	button.style.setProperty("color", themes.get(theme).fontColor);
-	console.log(themes.get(theme))
 	body.appendChild(button);
-	console.log(button);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 	createBtn("Dark Mode", "dark");
 	createBtn("America", "america");
+	createBtn("Hacker Mode", "hacker");
 
 	//onclick for the button
 	Array.prototype.forEach.call(document.getElementsByClassName('btn'), element => {
-		console.log(element)
 			element.addEventListener('click', () => {
 				//get the current tab
 				chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
