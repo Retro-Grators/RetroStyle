@@ -1,10 +1,5 @@
-# RetroStyle
+# RetroGrator
 SwampHacks 2021 (UF)
-
-Schema info:
-- background color
-- font, color & size for heading
-- font, color & size for regular text
 
 # Installing the Extension
 1. Download the source code
