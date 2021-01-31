@@ -145,7 +145,7 @@ function setOriginalPage(tab){
 function getThemeChanger(tab, theme){
 	let funcStr = changeTheme.toString();
 	//The code after 'code:' is run with the execute script, but it needs to be in string form 
-	chrome.tabs.executeScript(tab.id, {code:`var theme=${JSON.stringify(theme)};`}, function() {
+	chrome.tabs.executeScript(tab.id, {code:`var theme=${JSON.stringify(theme)};console.log('hi')`}, function() {
 		chrome.tabs.executeScript(tab.id, {code:`${funcStr.slice(funcStr.indexOf('{')+1, funcStr.lastIndexOf('}'))}`});
 	});
 }
