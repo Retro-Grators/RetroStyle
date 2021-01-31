@@ -59,7 +59,6 @@ const ninetiesMode={
 	headingColor:"#19b02f",
 	backgroundColor:"#8c1dd1",
 	backgroundImage: 'url(https://lh3.googleusercontent.com/proxy/1syJq_8IB5sTTqnZEYbxCZRAuqQSu0m969QAY2VI3PbrA_ohsxOAMZaUZUAsn4BoLquwJcRHO2YmVdOo2rCkVm9prt3596PkUTxEr3QauR9ZGEYYT_7aIyQ)'
-
 };
 
 var themes = new Map();
@@ -85,7 +84,7 @@ function revertTheme () {
 function changeTheme () {
 	function setStyles(){
 		const headerTags = ["H1","H2","H3","H4", "H5", "H6"]
-		Array.prototype.forEach.call(document.getElementsByTagName('*'), element => {
+		Array.prototype.forEach.call(document.body.getElementsByTagName('*'), element => {
 			if(!(element.tagName=="MARQUEE")){
 				console.log()
 				if(theme.font){
@@ -126,9 +125,9 @@ function changeTheme () {
 	setStyles();
 
 	
-	//setTimeout(() => {
+	setTimeout(() => {
 		setStyles();
-	//}, 200)
+	}, 200)
 }
 
 function reverter(tab){
@@ -139,7 +138,7 @@ function reverter(tab){
 
 function setOriginalPage(tab){
 	//The code after 'code:' is run with the execute script, but it needs to be in string form 
-	chrome.tabs.executeScript(tab.id, {code:`var page=document.getElementsByTagName('body')[0].outerHTML;`}, function() {});
+	chrome.tabs.executeScript(tab.id, {code:`var page=document.getElementsByTagName('body')[0].outerHTML.toString();`}, function() {});
 }
 
 
